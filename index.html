@@ -539,6 +539,24 @@
       </div>
     </section>
 
+    
+    <!-- PDF Interactive Reader & Download Bar -->
+    <div style="max-width: 1200px; margin: 0 auto 30px; padding: 0 24px;">
+      <div style="background: #ffffff; border: 1px solid var(--amber-border); border-radius: 16px; padding: 20px 24px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; box-shadow: var(--shadow-sm);">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <div style="font-size: 2rem;">📕</div>
+          <div>
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.15rem; font-weight: 700; color: #1c1917; margin: 0;">Оригінальний PDF-рідер (30 сторінок)</h3>
+            <p style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.9rem; color: #78716c; margin: 2px 0 0;">Переглядайте ознайомчий фрагмент з оригінальною версткою або завантажте файл</p>
+          </div>
+        </div>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <a href="#pdf-viewer" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 0.9rem; background: var(--amber-light); color: var(--amber-dark); border: 1px solid var(--amber-border); padding: 10px 18px; border-radius: 8px; text-decoration: none;">🔍 Відкрити рідер нижче</a>
+          <a href="preview_demo.pdf" target="_blank" download="Root_Beekeeping_Demo_30_Pages.pdf" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 0.9rem; background: #0f172a; color: #ffffff; padding: 10px 18px; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">📥 Завантажити PDF (3.8 МБ)</a>
+        </div>
+      </div>
+    </div>
+
     <!-- Interactive Reader & SEO Sample (30 Pages) -->
     <div class="reader-section">
       <!-- Sidebar TOC -->
@@ -585,8 +603,21 @@
 
       <div class="book-content">
         <div class="reader-notice">
-          📖 <strong>Ознайомча версія (перші 30 сторінок):</strong> Текст повністю відкритий для читання та індексації пошуковими системами Google.
+          📖 <strong>Ознайомча версія (перші 30 сторінок):</strong> Ви можете читати оригінальний PDF-макет у рідері або гортати текстову HTML-версію нижче, адаптовану для Google.
         </div>
+
+        <div id="pdf-viewer" style="margin-bottom: 36px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <h2 style="font-family: 'Cinzel', serif; font-size: 1.4rem; color: #78350f; margin: 0;">Ознайомчий PDF-фрагмент</h2>
+            <a href="preview_demo.pdf" target="_blank" style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.85rem; color: var(--amber-dark); font-weight: 600; text-decoration: underline;">Відкрити у новому вікні ↗</a>
+          </div>
+          <div style="border: 2px solid var(--amber-border); border-radius: 12px; overflow: hidden; background: #525659; box-shadow: var(--shadow-md);">
+            <iframe src="preview_demo.pdf#toolbar=1&navpanes=0&scrollbar=1" width="100%" height="700px" style="border: none; display: block;" title="PDF Reader">
+              <p style="padding: 20px; color: white; text-align: center;">Ваш браузер не підтримує прямий перегляд PDF. <a href="preview_demo.pdf" style="color: #fde68a;">Натисніть тут, щоб завантажити ознайомчий PDF</a>.</p>
+            </iframe>
+          </div>
+        </div>
+
         <article class="article-block" id="intro">
           <h1>Вступні відомості</h1>
           <p>]</p>
