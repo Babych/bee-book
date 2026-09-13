@@ -299,6 +299,14 @@
       padding: 20px;
       box-shadow: var(--shadow-sm);
     }
+    @media (max-width: 900px) {
+      .toc-sidebar {
+        position: static;
+        max-height: 260px;
+        margin-bottom: 24px;
+        order: -1;
+      }
+    }
     .toc-title {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 0.95rem;
@@ -535,8 +543,12 @@
     <div class="reader-section">
       <!-- Sidebar TOC -->
       <aside class="toc-sidebar">
-        <div class="toc-title">Зміст ознайомчого фрагмента</div>
-        <nav class="toc-list">
+        <details id="toc-details" open>
+          <summary class="toc-title" style="cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+            <span>📑 Зміст фрагмента</span>
+            <span style="font-size: 0.8rem; font-weight: normal; color: var(--amber-main); border: 1px solid var(--amber-border); padding: 2px 8px; border-radius: 6px;">Згорнути / Розгорнути</span>
+          </summary>
+          <nav class="toc-list" style="margin-top: 10px;">
           <a href="#intro" class="level-1">Вступні відомості</a>
           <a href="#art-2" class="level-1">Передмова до видання 1877 року</a>
           <a href="#art-3" class="level-1">Передмова до видання 1923 року</a>
@@ -567,7 +579,8 @@
           <a href="#art-28" class="level-1">ФАЛЬСИФІКАЦІЯ МЕДУ</a>
           <a href="#art-29" class="level-2">Фальсифікація інвертним цукром (Adulteration with Invert Sugar)</a>
           <a href="#art-30" class="level-2">Післяроїння (After-swarming)</a>
-        </nav>
+          </nav>
+        </details>
       </aside>
 
       <div class="book-content">
