@@ -606,17 +606,70 @@
           📖 <strong>Ознайомча версія (перші 30 сторінок):</strong> Ви можете читати оригінальний PDF-макет у рідері або гортати текстову HTML-версію нижче, адаптовану для Google.
         </div>
 
-        <div id="pdf-viewer" style="margin-bottom: 36px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-            <h2 style="font-family: 'Cinzel', serif; font-size: 1.4rem; color: #78350f; margin: 0;">Ознайомчий PDF-фрагмент</h2>
-            <a href="preview_demo.pdf" target="_blank" style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.85rem; color: var(--amber-dark); font-weight: 600; text-decoration: underline;">Відкрити у новому вікні ↗</a>
+                <!-- Mobile & Desktop Page-by-Page Book Viewer -->
+        <div id="pdf-viewer" style="margin-bottom: 40px; background: #ffffff; border: 2px solid var(--amber-border); border-radius: 16px; padding: 20px; box-shadow: var(--shadow-md);">
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #f5f5f4;">
+            <div>
+              <h2 style="font-family: 'Cinzel', serif; font-size: 1.35rem; color: #78350f; margin: 0;">📖 Перегляд книги: Сторінка <span id="current-page-num" style="color: var(--amber-main); font-weight: bold;">1</span> з 30</h2>
+              <p style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.85rem; color: #78716c; margin: 2px 0 0;">Оригінальна верстка з усіма ілюстраціями та шрифтами</p>
+            </div>
+            
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <button id="btn-prev" onclick="changePage(-1)" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; background: #f3f4f6; border: 1px solid #d1d5db; color: #1f2937; padding: 8px 16px; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">◀ Назад</button>
+              <button id="btn-next" onclick="changePage(1)" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; background: var(--amber-main); border: 1px solid var(--amber-dark); color: white; padding: 8px 16px; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">Вперед ▶</button>
+              <a href="preview_demo.pdf" target="_blank" download="Root_Beekeeping_Demo_30_Pages.pdf" style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.85rem; background: #0f172a; color: white; padding: 8px 12px; border-radius: 8px; text-decoration: none; font-weight: 600;">📥 PDF</a>
+            </div>
           </div>
-          <div style="border: 2px solid var(--amber-border); border-radius: 12px; overflow: hidden; background: #525659; box-shadow: var(--shadow-md);">
-            <iframe src="preview_demo.pdf#toolbar=1&navpanes=0&scrollbar=1" width="100%" height="700px" style="border: none; display: block;" title="PDF Reader">
-              <p style="padding: 20px; color: white; text-align: center;">Ваш браузер не підтримує прямий перегляд PDF. <a href="preview_demo.pdf" style="color: #fde68a;">Натисніть тут, щоб завантажити ознайомчий PDF</a>.</p>
-            </iframe>
+
+          <!-- Active Page Display -->
+          <div style="text-align: center; background: #2b2b2b; padding: 12px; border-radius: 10px; position: relative;">
+            <img id="book-page-img" src="assets/page_01.jpg" alt="Сторінка книги" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); display: inline-block;">
+            
+            <!-- Quick Floating Arrows -->
+            <div onclick="changePage(-1)" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: white; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; cursor: pointer; user-select: none;">❮</div>
+            <div onclick="changePage(1)" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: white; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; cursor: pointer; user-select: none;">❯</div>
+          </div>
+
+          <!-- Bottom Navigation Thumbnails Slider -->
+          <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.85rem; color: #78716c;">Гортайте кнопками або стрілками</span>
+            <div style="display: flex; gap: 8px;">
+              <button onclick="changePage(-1)" style="padding: 6px 14px; font-size: 0.85rem; border-radius: 6px; border: 1px solid #d1d5db; background: white; cursor: pointer;">← Попередня</button>
+              <button onclick="changePage(1)" style="padding: 6px 14px; font-size: 0.85rem; border-radius: 6px; border: none; background: var(--amber-main); color: white; font-weight: 600; cursor: pointer;">Наступна →</button>
+            </div>
           </div>
         </div>
+
+        <script>
+          let currentPage = 1;
+          const totalPages = 30;
+
+          function updatePage() {
+            const padNum = String(currentPage).padStart(2, '0');
+            const img = document.getElementById('book-page-img');
+            img.src = 'assets/page_' + padNum + '.jpg';
+            document.getElementById('current-page-num').textContent = currentPage;
+            document.getElementById('btn-prev').disabled = (currentPage === 1);
+            document.getElementById('btn-prev').style.opacity = (currentPage === 1) ? '0.5' : '1';
+            document.getElementById('btn-next').disabled = (currentPage === totalPages);
+            document.getElementById('btn-next').style.opacity = (currentPage === totalPages) ? '0.5' : '1';
+          }
+
+          function changePage(delta) {
+            const next = currentPage + delta;
+            if (next >= 1 && next <= totalPages) {
+              currentPage = next;
+              updatePage();
+            }
+          }
+
+          // Keyboard arrow support
+          document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') changePage(-1);
+            if (e.key === 'ArrowRight') changePage(1);
+          });
+        </script>
+
 
         <article class="article-block" id="intro">
           <h1>Вступні відомості</h1>
