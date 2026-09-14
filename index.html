@@ -396,6 +396,9 @@
       <div class="hero-tags">
         <span>ABC та XYZ культури бджіл</span>
         <span>Повне видання: 660+ сторінок</span>
+        <span id="sales-badge" style="background: #fef2f2; color: #dc2626; border-color: #fecaca; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">
+          🔥 Придбано примірників: <strong id="sales-count" style="font-size: 0.95rem;">0</strong>
+        </span>
       </div>
     </section>
 
@@ -453,7 +456,7 @@
         </div>
 
         <!-- monobank button -->
-        <a href="https://send.monobank.ua/jar/PLACEHOLDER" target="_blank" rel="noopener" class="btn-checkout">
+        <a href="https://send.monobank.ua/jar/125MBQpSnH" target="_blank" rel="noopener" class="btn-checkout">
           Купити електронну версію — 99 ₴ ➔
         </a>
 
@@ -527,5 +530,27 @@
       }
     }, false);
   </script>
+
+  <script>
+    // Sales counter loader: fetches stats or calculates from jar
+    async function loadSalesCount() {
+      const salesCountElem = document.getElementById('sales-count');
+      try {
+        // Try fetching cached stats from GitHub repo or API
+        const res = await fetch('stats.json?t=' + Date.now());
+        if (res.ok) {
+          const data = await res.json();
+          if (data && typeof data.sales !== 'undefined') {
+            salesCountElem.textContent = data.sales;
+            return;
+          }
+        }
+      } catch (e) {}
+      // Default fallback
+      salesCountElem.textContent = '0';
+    }
+    loadSalesCount();
+  </script>
+
 </body>
 </html>
