@@ -399,8 +399,10 @@
         
         <!-- Controls Top -->
         <div class="reader-controls-top">
-          <div class="page-indicator">
-            Онлайн-перегляд: Сторінка <span id="current-page-num">1</span> з 100
+          <div class="page-indicator" style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+            <span>Сторінка:</span>
+            <input type="number" id="page-jump-input" min="1" max="728" value="1" onchange="jumpToPage(this.value)" style="width: 70px; padding: 4px 8px; border: 1px solid #d1d5db; border-radius: 6px; font-weight: 700; font-size: 1rem; text-align: center;">
+            <span>з 728</span>
           </div>
           <div style="display: flex; gap: 8px;">
             <button id="btn-prev" class="btn-nav" onclick="changePage(-1)">◀ Назад</button>
@@ -410,7 +412,7 @@
 
         <!-- Page Stage with Touch/Click Navigation -->
         <div class="page-stage">
-          <img id="book-page-img" src="assets/page_01.jpg" alt="Сторінка книги" onclick="changePage(1)">
+          <img id="book-page-img" src="assets/page_001.jpg" alt="Сторінка книги" onclick="changePage(1)">
 
           <!-- Left / Right Tap Zones -->
           <div class="arrow-tap-area arrow-tap-left" onclick="changePage(-1)">
@@ -443,13 +445,22 @@
 
   <script>
     let currentPage = 1;
-    const totalPages = 100;
+    const totalPages = 728;
+
+    function jumpToPage(val) {
+      const num = parseInt(val, 10);
+      if (!isNaN(num) && num >= 1 && num <= totalPages) {
+        currentPage = num;
+        updatePage();
+      }
+    }
 
     function updatePage() {
-      const padNum = String(currentPage).padStart(2, '0');
+      const padNum = String(currentPage).padStart(3, '0');
       const img = document.getElementById('book-page-img');
       img.src = 'assets/page_' + padNum + '.jpg';
-      document.getElementById('current-page-num').textContent = currentPage;
+      const input = document.getElementById('page-jump-input');
+      if (input) input.value = currentPage;
       
       const pct = (currentPage / totalPages) * 100;
       document.getElementById('reader-progress').style.width = pct + '%';
